@@ -169,7 +169,7 @@ func main() {
 				// TODO(mjibson): improve SET filtering
 				// TODO(mjibson): improve SELECT display
 				{name: "alter_table_stmt", inline: []string{"alter_table_cmds", "alter_table_cmd", "column_def", "opt_drop_behavior", "alter_column_default", "opt_column", "opt_set_data"}},
-				{name: "begin_transaction", stmt: "transaction_stmt", inline: []string{"opt_transaction", "opt_transaction_mode_list", "transaction_iso_level", "transaction_user_priority", "user_priority"}, match: regexp.MustCompile("'BEGIN'|'START'")},
+				{name: "begin_transaction", stmt: "transaction_stmt", inline: []string{"opt_transaction", "opt_transaction_mode_list", "transaction_iso_level", "transaction_user_priority", "user_priority"}, match: regexp.MustCompile("'BEGIN'"), replace: map[string]string{"'ISOLATION' 'LEVEL' iso_level ','" : ""}},
 				{name: "column_def"},
 				{name: "col_qual_list", stmt: "col_qual_list", inline: []string{"col_qualification", "col_qualification_elem"}, replace: map[string]string{"| 'REFERENCES' qualified_name opt_name_parens": ""}},
 				{name: "commit_transaction", stmt: "transaction_stmt", inline: []string{"opt_transaction"}, match: regexp.MustCompile("'COMMIT'|'END'")},
